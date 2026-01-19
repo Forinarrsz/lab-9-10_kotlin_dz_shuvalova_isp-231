@@ -1,4 +1,4 @@
-class Employee(
+/*class Employee(
     private var fullName: String,
     private var position: String,
     private var salary: Double,
@@ -51,4 +51,11 @@ fun main() {
     employee.salaryAmount = -1000.0
     employee.experience = 60
     println("ФИО: ${employee.name}, Должность: ${employee.jobTitle}, Зарплата: ${employee.salaryAmount}, Опыт работы: ${employee.experience}")
+}
+*/
+//обновлено под задание 5
+data class Employee(val fullName: String, val position: String) : ReportGenerator {
+    override fun generateReport(): String {
+        return "Сотрудник: $fullName, Должность: $position"
+    }
 }
