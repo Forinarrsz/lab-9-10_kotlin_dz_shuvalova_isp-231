@@ -54,8 +54,45 @@ fun main() {
 }
 */
 //обновлено под задание 5
-data class Employee(val fullName: String, val position: String) : ReportGenerator {
+/*data class Employee(val fullName: String, val position: String) : ReportGenerator {
     override fun generateReport(): String {
         return "Сотрудник: $fullName, Должность: $position"
+    }
+}*/
+//задание 6
+data class Task(val name: String, val isCompleted: Boolean = false)
+
+data class Employee(val fullName: String, val position: String, var currentTask: Task? = null) : ReportGenerator {
+    override fun generateReport(): String {
+        return "Сотрудник: $fullName, Должность: $position, Текущая задача: ${currentTask?.name ?: "Нет"}"
+    }
+
+    fun assignTask(newTask: Task) {
+        if (currentTask != null && !currentTask!!.isCompleted) {
+            println("Сотрудник уже занят задачей ${currentTask!!.name}")
+        } else {
+            currentTask = newTask
+            println("Задача '${newTask.name}' назначена сотруднику $fullName")
+        }
+    }
+}
+fun main() {
+    val employee = Employee("Иванов Иван Иванович", "Разработчик")
+    val developmentDepartment = DevelopmentDepartment()
+
+
+    val task1 = Task("Разработать функционал A")
+    val task2 = Task("Исправить баг B")
+
+    employee.assignTask(task1)
+
+
+    employee.assignTask(task2)
+
+
+    val reportGenerators: List<ReportGenerator> = listOf(employee, developmentDepartment)
+
+    for (reportGenerator in reportGenerators) {
+        println(reportGenerator.generateReport())
     }
 }
